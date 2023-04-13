@@ -435,6 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 985140464}
+  - component: {fileID: 985140465}
   m_Layer: 0
   m_Name: Bootstrap
   m_TagString: Untagged
@@ -450,13 +451,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985140463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1979808, y: 0.003654085, z: -0.0034506638}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &985140465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985140463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63adc05ff12e4a40aeea904943fb166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1450721907
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +532,13 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1450721908}
-    PlayerPrefab: {fileID: 0}
-    NetworkPrefabs: []
+    PlayerPrefab: {fileID: 5850291615209796932, guid: 3945c0f891673df4d91f060cc03e0160, type: 3}
+    NetworkPrefabs:
+    - Override: 0
+      Prefab: {fileID: 4508497661245521749, guid: 52cf225f62fc53041b2b150b5cea9909, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 60
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -1002,6 +1020,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 162836481}
     m_Modifications:
+    - target: {fileID: -499533430862818397, guid: 52cf225f62fc53041b2b150b5cea9909, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1226677818
+      objectReference: {fileID: 0}
     - target: {fileID: 4508497661245521749, guid: 52cf225f62fc53041b2b150b5cea9909, type: 3}
       propertyPath: m_Name
       value: Ball
@@ -1176,6 +1198,10 @@ PrefabInstance:
     - target: {fileID: 5850291615209796934, guid: 3945c0f891673df4d91f060cc03e0160, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744495161899538309, guid: 3945c0f891673df4d91f060cc03e0160, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 11740830
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3945c0f891673df4d91f060cc03e0160, type: 3}
