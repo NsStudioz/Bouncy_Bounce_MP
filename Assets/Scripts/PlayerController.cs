@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
             transform.position = new Vector2(newXPosition, transform.position.y); // storing the new position and updating it.
 
-            Debug.Log("X Difference =  " + xDifference);
+            //Debug.Log("X Difference =  " + xDifference);
         }
     }
 
