@@ -56,7 +56,7 @@ public class PlayerSelector : NetworkBehaviour
                 else
                     playerStateManagers[i].Disable();
             }
-            else
+            else // if it's not the host.
             {
                 if (isHostTurn)
                     playerStateManagers[i].Disable();

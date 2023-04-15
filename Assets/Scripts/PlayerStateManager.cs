@@ -21,7 +21,7 @@ public class PlayerStateManager : NetworkBehaviour
     }
 
     [ClientRpc] // so that the clients can receive this code block.
-    private void EnableClientRpc() // "enable renderer"
+    private void EnableClientRpc() // "enable renderer" and collisions
     {
         col2D.enabled = true; 
 
@@ -34,7 +34,7 @@ public class PlayerStateManager : NetworkBehaviour
     }
 
     [ClientRpc] // so that the clients can receive this code block.
-    private void DisableClientRpc() // "disable renderer"
+    private void DisableClientRpc() // "disable renderer" and collisions
     {
         col2D.enabled = false;
 
