@@ -38,6 +38,7 @@ public class GameManager : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
+        // When server starts, throw event
         NetworkManager.OnServerStarted += NetworkManager_OnServerStarted;
     }
 
@@ -45,7 +46,16 @@ public class GameManager : NetworkBehaviour
     {
         base.OnNetworkDespawn();
 
-        NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted;
+        NetworkManager.Singleton.OnClientConnectedCallback -= Singleton_OnClientConnectedCallback; // unsubscribe from this event.
+
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        //NetworkManager.Singleton.OnClientConnectedCallback -= Singleton_OnClientConnectedCallback; // unsubscribe from this event.
+        NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted; // When server starts, throw event
     }
 
     private void NetworkManager_OnServerStarted()
@@ -55,7 +65,7 @@ public class GameManager : NetworkBehaviour
 
         // If it is the host or server, go here:
         connectedPlayers++; // add to the variable an additional player.
-        NetworkManager.Singleton.OnClientConnectedCallback += Singleton_OnClientConnectedCallback; // subscribe
+        NetworkManager.Singleton.OnClientConnectedCallback += Singleton_OnClientConnectedCallback; // when client connected ,subscribe to an event
     }
 
     private void Singleton_OnClientConnectedCallback(ulong obj)

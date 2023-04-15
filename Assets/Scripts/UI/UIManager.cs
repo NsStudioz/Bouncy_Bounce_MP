@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -16,7 +17,21 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        ShowConnectionPanel(); 
+        ShowConnectionPanel();
+
+        GameManager.OnGameStateChanged += GameStateChangedCallback;
+    }
+
+    private void GameStateChangedCallback(GameManager.State gameState)
+    {
+        switch (gameState)
+        {
+            case GameManager.State.Game:
+                ShowGamePanel();
+                break;
+
+            //case GameManager.State.
+        }
     }
 
     private void OnEnable()
@@ -31,6 +46,10 @@ public class UIManager : MonoBehaviour
         clientButton.onClick.RemoveAllListeners();
     }
 
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameStateChangedCallback;
+    }
 
     void Update()
     {
