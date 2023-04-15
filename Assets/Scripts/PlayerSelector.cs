@@ -26,6 +26,7 @@ public class PlayerSelector : NetworkBehaviour
             return;
 
         GameManager.OnGameStateChanged += GameStateChangedCallback;
+        Ball.OnHit += SwitchPlayers;
     }
 
     private void GameStateChangedCallback(GameManager.State gameState)
@@ -65,6 +66,13 @@ public class PlayerSelector : NetworkBehaviour
         }
     }
 
+    private void SwitchPlayers()
+    {
+        isHostTurn = !isHostTurn;
+
+        Initialize();
+    }
+
     void Update()
     {
         
@@ -76,5 +84,8 @@ public class PlayerSelector : NetworkBehaviour
 
         NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted;
         GameManager.OnGameStateChanged -= GameStateChangedCallback;
+        Ball.OnHit -= SwitchPlayers;
     }
+
+
 }
