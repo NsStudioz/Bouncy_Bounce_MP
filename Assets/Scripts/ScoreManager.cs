@@ -38,12 +38,13 @@ public class ScoreManager : NetworkBehaviour
             clientScore++;
 
         // Update text:
+        UpdateScoreClientRpc(hostScore, clientScore);
         UpdateScoreText();
     }
 
     private void UpdateScoreText()
     {
-        scoreText.text = "<color=#0055ffff> " + hostScore + "</color> - <color=#ff5500ff> " + clientScore + "</color>";
+        UpdateScoreTextClientRpc(); // call a client Rpc and update all clients.
     }
 
     void Start()
@@ -62,5 +63,19 @@ public class ScoreManager : NetworkBehaviour
 
         NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted;
         Ball.OnFellInWater -= BallFellInWaterCallback;
+    }
+
+    [ClientRpc]
+    private void UpdateScoreClientRpc(int hostScore, int clientScore)
+    {
+        // attribute these values to the local variables (hostScore + clientScore)
+        this.hostScore = hostScore; 
+        this.clientScore = clientScore;
+    }
+
+    [ClientRpc]
+    private void UpdateScoreTextClientRpc()
+    {
+        scoreText.text = "<color=#0055ffff> " + hostScore + "</color> - <color=#ff5500ff> " + clientScore + "</color>";
     }
 }
