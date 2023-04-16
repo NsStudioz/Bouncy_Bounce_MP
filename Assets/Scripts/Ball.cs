@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     //
     [SerializeField] private float bounceVelocity;
     [SerializeField] private bool isAlive;
+    [SerializeField] private float gravityScale;
 
     [Header("Events")]
     public static Action OnHit;
@@ -20,6 +21,19 @@ public class Ball : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         isAlive = true;
+
+        gravityScale = rigidBody2D.gravityScale; // initialize gravityScale at start frame.
+        rigidBody2D.gravityScale = 0; // set rigidbody gravity off. regular gravityScale variable does not change here.
+
+        // wait 2 seconds, then fall:
+        StartCoroutine("WaitAndFall");
+    }
+
+    IEnumerator WaitAndFall()
+    {
+        yield return new WaitForSeconds(2);
+
+        rigidBody2D.gravityScale = gravityScale; // set the rigidbody gravity on.
     }
 
 
