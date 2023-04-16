@@ -6,11 +6,22 @@ using System;
 
 public class PlayerSelector : NetworkBehaviour
 {
+    public static PlayerSelector instance;
+
+
     private bool isHostTurn;
 
-    void Start()
+    void Awake()
     {
+        if(instance == null) 
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
+    public bool GetIsHostTurn() 
+    { 
+        return isHostTurn;
     }
 
     public override void OnNetworkSpawn()
