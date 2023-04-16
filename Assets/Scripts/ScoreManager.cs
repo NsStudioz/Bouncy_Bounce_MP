@@ -28,6 +28,26 @@ public class ScoreManager : NetworkBehaviour
             return;
 
         Ball.OnFellInWater += BallFellInWaterCallback;
+        GameManager.OnGameStateChanged += GameStateChangedCallback;
+    }
+
+    private void GameStateChangedCallback(GameManager.State gameState)
+    {
+        switch (gameState)
+        {
+            case GameManager.State.Game:
+                ResetScores();
+                break;
+        }
+    }
+
+    private void ResetScores()
+    {
+        hostScore = 0;
+        clientScore = 0;
+
+        UpdateScoreClientRpc(hostScore, clientScore);
+        UpdateScoreText();
     }
 
     private void BallFellInWaterCallback()
@@ -63,6 +83,7 @@ public class ScoreManager : NetworkBehaviour
 
         NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted;
         Ball.OnFellInWater -= BallFellInWaterCallback;
+        GameManager.OnGameStateChanged -= GameStateChangedCallback;
     }
 
     [ClientRpc]
