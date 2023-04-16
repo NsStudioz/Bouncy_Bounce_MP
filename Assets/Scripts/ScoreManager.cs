@@ -60,6 +60,32 @@ public class ScoreManager : NetworkBehaviour
         // Update text:
         UpdateScoreClientRpc(hostScore, clientScore);
         UpdateScoreText();
+
+        CheckForEndGame();
+    }
+
+    private void CheckForEndGame()
+    {
+        if (hostScore >= 3)
+        {
+            // host wins:
+
+        }
+        else if (clientScore >= 3)
+        {
+            // client wins:
+
+        }
+        else
+        {
+            // respawn ball and set its gravity on a timer:
+            ReuseBall();
+        }
+    }
+
+    private void ReuseBall()
+    {
+        BallManager.instance.ReuseBall(); // call the ReuseBall method from BallManager
     }
 
     private void UpdateScoreText()
