@@ -24,8 +24,6 @@ public class BallManager : NetworkBehaviour
         GameManager.OnGameStateChanged += GameStateChangedCallback;
     }
 
-
-
     void Update()
     {
         

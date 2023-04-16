@@ -34,18 +34,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        hostButton.onClick.AddListener(HostButtonCallback);
-        clientButton.onClick.AddListener(ClientButtonCallback);
-    }
-
-    private void OnDisable()
-    {
-        hostButton.onClick.RemoveAllListeners();
-        clientButton.onClick.RemoveAllListeners();
-    }
-
     private void OnDestroy()
     {
         GameManager.OnGameStateChanged -= GameStateChangedCallback;
@@ -89,5 +77,18 @@ public class UIManager : MonoBehaviour
         NetworkManager.Singleton.StartClient();
         ShowWaitingPanel();
     }
-
 }
+
+// Trash Code:
+/*    private void OnEnable()
+    {
+        hostButton.onClick.AddListener(HostButtonCallback);
+        clientButton.onClick.AddListener(ClientButtonCallback);
+    }
+
+    private void OnDisable()
+    {
+        hostButton.onClick.RemoveAllListeners();
+        clientButton.onClick.RemoveAllListeners();
+    }*/
+

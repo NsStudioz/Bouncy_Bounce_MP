@@ -19,7 +19,7 @@ public class GameManager : NetworkBehaviour
 
     private State gameState;
     //
-    private int connectedPlayers;
+    [SerializeField] private int connectedPlayers;
 
     [Header("Events")]
     public static Action<State> OnGameStateChanged;
@@ -55,7 +55,7 @@ public class GameManager : NetworkBehaviour
         base.OnDestroy();
 
         //NetworkManager.Singleton.OnClientConnectedCallback -= Singleton_OnClientConnectedCallback; // unsubscribe from this event.
-        NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted; // When server starts, throw event
+        NetworkManager.OnServerStarted -= NetworkManager_OnServerStarted; // When server starts, or host starts, throw event
     }
 
     private void NetworkManager_OnServerStarted()
@@ -65,11 +65,18 @@ public class GameManager : NetworkBehaviour
 
         // If it is the host or server, go here:
         connectedPlayers++; // add to the variable an additional player.
+        //
+/*        // deleted when bugs fixed.
+        StartGame(); // start the game.
+        //*/
+
         NetworkManager.Singleton.OnClientConnectedCallback += Singleton_OnClientConnectedCallback; // when client connected ,subscribe to an event
     }
 
     private void Singleton_OnClientConnectedCallback(ulong obj)
     {
+        connectedPlayers++;
+
         if (connectedPlayers >= 2) // if there are 2 players
         {
             StartGame(); // start the game.
@@ -79,6 +86,7 @@ public class GameManager : NetworkBehaviour
     private void StartGame()
     {
         StartGameClientRpc(); // make a ClientRpc call.
+        Debug.Log("StartGame() passed");
     }
 
     [ClientRpc]
@@ -86,6 +94,7 @@ public class GameManager : NetworkBehaviour
     {
         gameState = State.Game;
         OnGameStateChanged?.Invoke(gameState);
+        Debug.Log("StartGameClientRpc() passed");
     }
 
     void Start()
@@ -99,7 +108,14 @@ public class GameManager : NetworkBehaviour
         
     }
 
-
+    // backup code:
+/*    private void Singleton_OnClientConnectedCallback(ulong obj)
+    {
+        if (connectedPlayers >= 1) // if there are 2 players
+        {
+            StartGame(); // start the game.
+        }
+    }*/
 
 
 }

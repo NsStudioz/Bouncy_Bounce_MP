@@ -17,7 +17,7 @@ public class PlayerColors : NetworkBehaviour
             ColorizeServerRpc(Color.red);
         }
 
-        ColorizeServerRpc(Color.red);
+        //ColorizeServerRpc(Color.red);
     }
 
     void Start()
