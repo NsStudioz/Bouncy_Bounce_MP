@@ -61,13 +61,29 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if (!isAlive)
+            return;
+
         if (col.CompareTag("Water"))
         {
-            if (!isAlive)
-                return;
-
+            isAlive = false;    // this must start first, to prevent execution order issues when an event starts.
             OnFellInWater?.Invoke();
-            isAlive = false;
         }
     }
+
+    public void Reuse()
+    {
+        // set position, set gravity and velocities off:
+        transform.position = Vector2.up * 5;
+        rigidBody2D.velocity = Vector2.zero;
+        rigidBody2D.angularVelocity = 0; // disable rotation
+        rigidBody2D.gravityScale = 0;
+
+        // set triggers on for ball:
+        isAlive = true;
+
+        // set timer and gravity on
+        StartCoroutine("WaitAndFall");
+    }
+
 }
