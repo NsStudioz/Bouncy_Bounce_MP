@@ -97,6 +97,13 @@ public class GameManager : NetworkBehaviour
         Debug.Log("StartGameClientRpc() passed");
     }
 
+    public void SetGameState(State gameState)
+    {
+        this.gameState = gameState; // using "this" keyword so we can edit the current game state, and not a different game state.
+        OnGameStateChanged?.Invoke(gameState);
+    }
+
+
     void Start()
     {
         gameState = State.Menu;
@@ -108,14 +115,16 @@ public class GameManager : NetworkBehaviour
         
     }
 
+
+
     // backup code:
-/*    private void Singleton_OnClientConnectedCallback(ulong obj)
-    {
-        if (connectedPlayers >= 1) // if there are 2 players
+    /*    private void Singleton_OnClientConnectedCallback(ulong obj)
         {
-            StartGame(); // start the game.
-        }
-    }*/
+            if (connectedPlayers >= 1) // if there are 2 players
+            {
+                StartGame(); // start the game.
+            }
+        }*/
 
 
 }

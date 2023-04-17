@@ -69,12 +69,12 @@ public class ScoreManager : NetworkBehaviour
         if (hostScore >= 3)
         {
             // host wins:
-
+            HostWin();
         }
         else if (clientScore >= 3)
         {
             // client wins:
-
+            ClientWin();
         }
         else
         {
@@ -101,6 +101,34 @@ public class ScoreManager : NetworkBehaviour
     void Update()
     {
         
+    }
+
+    private void HostWin()
+    {
+        HostWinClientRpc();
+    }
+
+    [ClientRpc]
+    private void HostWinClientRpc()
+    {
+        if (IsServer) // if the host win.
+            GameManager.instance.SetGameState(GameManager.State.Win);
+        else
+            GameManager.instance.SetGameState(GameManager.State.Lost);
+    }
+
+    private void ClientWin()
+    {
+        ClientWinClientRpc();
+    }
+
+    [ClientRpc]
+    private void ClientWinClientRpc()
+    {
+        if (IsServer) // if the host win.
+            GameManager.instance.SetGameState(GameManager.State.Lost);
+        else
+            GameManager.instance.SetGameState(GameManager.State.Win);
     }
 
     public override void OnDestroy()
