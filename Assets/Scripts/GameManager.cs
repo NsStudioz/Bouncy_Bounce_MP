@@ -66,9 +66,9 @@ public class GameManager : NetworkBehaviour
         // If it is the host or server, go here:
         connectedPlayers++; // add to the variable an additional player.
         //
-/*        // deleted when bugs fixed.
+        // deleted when bugs fixed.
         StartGame(); // start the game.
-        //*/
+        //
 
         NetworkManager.Singleton.OnClientConnectedCallback += Singleton_OnClientConnectedCallback; // when client connected ,subscribe to an event
     }

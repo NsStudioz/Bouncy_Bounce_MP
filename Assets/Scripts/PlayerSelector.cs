@@ -9,7 +9,7 @@ public class PlayerSelector : NetworkBehaviour
     public static PlayerSelector instance;
 
 
-    private bool isHostTurn;
+    [SerializeField] private bool isHostTurn;
 
     void Awake()
     {
@@ -17,6 +17,11 @@ public class PlayerSelector : NetworkBehaviour
             instance = this;
         else
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        isHostTurn = true;
     }
 
     public bool GetIsHostTurn() 

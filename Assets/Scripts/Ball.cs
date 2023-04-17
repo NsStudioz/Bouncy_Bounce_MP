@@ -50,6 +50,7 @@ public class Ball : MonoBehaviour
         if (col.collider.TryGetComponent(out PlayerController playerController)) // if the collider has the component type of PlayerController...
         {
             Bounce(col.GetContact(0).normal);
+            //
             OnHit?.Invoke();
         }
     }
