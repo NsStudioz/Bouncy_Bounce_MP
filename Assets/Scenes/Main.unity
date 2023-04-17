@@ -1096,6 +1096,8 @@ MonoBehaviour:
   connectionPanel: {fileID: 775700643}
   waitingPanel: {fileID: 77602355}
   gamePanel: {fileID: 1420344561}
+  winPanel: {fileID: 0}
+  lostPanel: {fileID: 0}
   hostButton: {fileID: 88825259}
   clientButton: {fileID: 1730801968}
 --- !u!1 &973070929
@@ -1586,7 +1588,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1599498444}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 830252723}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: NextButtonCallback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1599498444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2896,7 +2910,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1910717410}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 830252723}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: NextButtonCallback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1910717410
 MonoBehaviour:
   m_ObjectHideFlags: 0
