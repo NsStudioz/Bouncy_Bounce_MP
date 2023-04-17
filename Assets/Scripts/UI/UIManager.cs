@@ -19,12 +19,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button hostButton;
     [SerializeField] Button clientButton;
 
-    [SerializeField] private GameObject IpPanel;
+    //[SerializeField] private GameObject IpPanel;
 
-    private void Awake()
+/*    private void Awake()
     {
         SetIpPanelOnBuilds();
-    }
+    }*/
 
     void Start()
     {
@@ -105,18 +105,31 @@ public class UIManager : MonoBehaviour
     // may be public
     private void HostButtonCallback()
     {
+#if UNITY_STANDALONE_WIN
         NetworkManager.Singleton.StartHost();
         ShowWaitingPanel();
+#else
+        ShowWaitingPanel();
+        
+        // set relay allocation connection and start host (NGO):
+        RelayManager.instance.StartCoroutine(RelayManager.instance.RelayConfigureTransportAndStartHost());    
+#endif
     }
 
     private void ClientButtonCallback()
     {
 #if UNITY_STANDALONE_WIN
         SetIPConnection();
-#endif
 
         NetworkManager.Singleton.StartClient();
+        
         ShowWaitingPanel();
+#else
+        RelayManager.instance.StartCoroutine(RelayManager.instance.RelayConfigureTransportAndStartClient());
+        ShowWaitingPanel();
+#endif
+
+        //NetworkManager.Singleton.StartClient();
     }
 
 
@@ -131,14 +144,16 @@ public class UIManager : MonoBehaviour
     }
 
     // Show/Hide the IP Panel based on the platform builds (Windows || Android)
-    private void SetIpPanelOnBuilds()
+/*    private void SetIpPanelOnBuilds()
     {
-#if UNITY_STANDALONE_WIN
+        IpPanel.SetActive(true); // if on windows platform, show this panel.
+
+*//*#if UNITY_STANDALONE_WIN
         IpPanel.SetActive(true); // if on windows platform, show this panel.
 #else
         IpPanel.SetActive(false); // if on any other platform, hide this panel.
-#endif
-    }
+#endif*//*
+    }*/
 
 }
 
