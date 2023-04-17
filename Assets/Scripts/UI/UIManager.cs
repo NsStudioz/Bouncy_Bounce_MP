@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject connectionPanel;
     [SerializeField] private GameObject waitingPanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject lostPanel;
 
     [SerializeField] Button hostButton;
     [SerializeField] Button clientButton;
@@ -30,7 +33,13 @@ public class UIManager : MonoBehaviour
                 ShowGamePanel();
                 break;
 
-            //case GameManager.State.
+            case GameManager.State.Win:
+                ShowWinPanel();
+                break;
+
+            case GameManager.State.Lost:
+                ShowLostPanel();
+                break;
         }
     }
 
@@ -49,6 +58,9 @@ public class UIManager : MonoBehaviour
         connectionPanel.SetActive(true);
         waitingPanel.SetActive(false);
         gamePanel.SetActive(false);
+
+        winPanel.SetActive(false);
+        lostPanel.SetActive(false);
     }
 
     private void ShowWaitingPanel()
@@ -64,6 +76,23 @@ public class UIManager : MonoBehaviour
         waitingPanel.SetActive(false);
         gamePanel.SetActive(true);
     }
+
+    private void ShowWinPanel()
+    {
+        winPanel.SetActive(true);
+    }
+    private void ShowLostPanel()
+    {
+        lostPanel.SetActive(true);
+    }
+
+    public void NextButtonCallback()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reload the active scene.
+
+        NetworkManager.Singleton.Shutdown(); // exit host.
+    }
+
 
     // may be public
     private void HostButtonCallback()

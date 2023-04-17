@@ -14,7 +14,7 @@ public class GameManager : NetworkBehaviour
         Menu,
         Game,
         Win,
-        Lose
+        Lost
     }
 
     private State gameState;
