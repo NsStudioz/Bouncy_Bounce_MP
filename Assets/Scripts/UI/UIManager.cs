@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Button hostButton;
     [SerializeField] Button clientButton;
+
+    [SerializeField] private GameObject IpPanel;
+
+    private void Awake()
+    {
+        SetIpPanelOnBuilds();
+    }
 
     void Start()
     {
@@ -103,10 +111,38 @@ public class UIManager : MonoBehaviour
 
     private void ClientButtonCallback()
     {
+#if UNITY_STANDALONE_WIN
+        SetIPConnection();
+#endif
+
         NetworkManager.Singleton.StartClient();
         ShowWaitingPanel();
     }
+
+
+    private void SetIPConnection()
+    {
+        // grab the IP Address that the client has entered:
+        string ipAddress = IPManager.instance.GetInputIP();
+
+        // Configure the Network Manager:
+        UnityTransport utp = NetworkManager.Singleton.GetComponent<UnityTransport>(); // Get the Unity Transport.
+        utp.SetConnectionData(ipAddress, 7777); // Use the ip address string typed in the input field to set the connection data of this transport and connect to a host.
+    }
+
+    // Show/Hide the IP Panel based on the platform builds (Windows || Android)
+    private void SetIpPanelOnBuilds()
+    {
+#if UNITY_STANDALONE_WIN
+        IpPanel.SetActive(true); // if on windows platform, show this panel.
+#else
+        IpPanel.SetActive(false); // if on any other platform, hide this panel.
+#endif
+    }
+
 }
+
+
 
 // Trash Code:
 /*    private void OnEnable()
