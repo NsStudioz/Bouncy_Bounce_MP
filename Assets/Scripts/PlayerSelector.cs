@@ -21,7 +21,7 @@ public class PlayerSelector : NetworkBehaviour
 
     private void Start()
     {
-        isHostTurn = true;
+        //isHostTurn = true;
     }
 
     public bool GetIsHostTurn() 

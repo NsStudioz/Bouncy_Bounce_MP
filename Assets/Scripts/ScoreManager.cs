@@ -12,8 +12,8 @@ public class ScoreManager : NetworkBehaviour
 
     [Header("Elements")]
     [SerializeField] private TextMeshProUGUI scoreText;
-    private int hostScore;
-    private int clientScore;
+    [SerializeField] private int hostScore;
+    [SerializeField] private int clientScore;
 
     public override void OnNetworkSpawn()
     {
@@ -52,7 +52,7 @@ public class ScoreManager : NetworkBehaviour
 
     private void BallFellInWaterCallback()
     {
-        if (PlayerSelector.instance.GetIsHostTurn())
+        if (!PlayerSelector.instance.GetIsHostTurn())
             hostScore++;
         else
             clientScore++;
