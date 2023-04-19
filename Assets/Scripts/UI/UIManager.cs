@@ -108,6 +108,8 @@ public class UIManager : MonoBehaviour
 #if UNITY_STANDALONE_WIN
         NetworkManager.Singleton.StartHost();
         ShowWaitingPanel();
+        //
+        //RelayManager.instance.StartCoroutine(RelayManager.instance.RelayConfigureTransportAndStartHost());
 #else
         ShowWaitingPanel();
         
@@ -122,39 +124,25 @@ public class UIManager : MonoBehaviour
         SetIPConnection();
 
         NetworkManager.Singleton.StartClient();
-        
+
         ShowWaitingPanel();
 #else
         RelayManager.instance.StartCoroutine(RelayManager.instance.RelayConfigureTransportAndStartClient());
         ShowWaitingPanel();
 #endif
-
-        //NetworkManager.Singleton.StartClient();
     }
-
 
     private void SetIPConnection()
     {
+#if UNITY_STANDALONE_WIN
         // grab the IP Address that the client has entered:
         string ipAddress = IPManager.instance.GetInputIP();
 
         // Configure the Network Manager:
         UnityTransport utp = NetworkManager.Singleton.GetComponent<UnityTransport>(); // Get the Unity Transport.
         utp.SetConnectionData(ipAddress, 7777); // Use the ip address string typed in the input field to set the connection data of this transport and connect to a host.
+#endif
     }
-
-    // Show/Hide the IP Panel based on the platform builds (Windows || Android)
-/*    private void SetIpPanelOnBuilds()
-    {
-        IpPanel.SetActive(true); // if on windows platform, show this panel.
-
-*//*#if UNITY_STANDALONE_WIN
-        IpPanel.SetActive(true); // if on windows platform, show this panel.
-#else
-        IpPanel.SetActive(false); // if on any other platform, hide this panel.
-#endif*//*
-    }*/
-
 }
 
 
@@ -172,3 +160,14 @@ public class UIManager : MonoBehaviour
         clientButton.onClick.RemoveAllListeners();
     }*/
 
+// Show/Hide the IP Panel based on the platform builds (Windows || Android)
+/*    private void SetIpPanelOnBuilds()
+    {
+        IpPanel.SetActive(true); // if on windows platform, show this panel.
+
+*//*#if UNITY_STANDALONE_WIN
+        IpPanel.SetActive(true); // if on windows platform, show this panel.
+#else
+        IpPanel.SetActive(false); // if on any other platform, hide this panel.
+#endif*//*
+    }*/
